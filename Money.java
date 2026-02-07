@@ -1,3 +1,4 @@
+package Problem1;
 public class Money {
     private long dollars;
     private long cents;
