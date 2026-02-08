@@ -1,4 +1,3 @@
-package Problem1;
 public class CreditCard {
     private Money balance;
     private Money creditLimit;
@@ -24,7 +23,7 @@ public class CreditCard {
 
     public void charge(Money amount){
         Money newBalance = this.balance.add(amount);
-        if (newBalance.compareTO(this.creditLimit) <= 0){
+        if (newBalance.compareTo(this.creditLimit) <= 0){
             this.balance = newBalance;
         } else {
             System.out.println("Charge denied: exceeds credit limit.");

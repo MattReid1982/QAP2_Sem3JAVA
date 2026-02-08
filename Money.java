@@ -1,4 +1,3 @@
-package Problem1;
 public class Money {
     private long dollars;
     private long cents;
@@ -41,11 +40,6 @@ public class Money {
 
     public String toString() {
         return "$" + this.dollars + "." + String.format("%02d", this.cents);
-    }
-
-    public int compareTO(Money creditLimit) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'compareTO'");
     }
 
 }
