@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import Problem2.MyLine;
 import Problem2.MyPoint;
 import Problem3.MyRectangle;
-import Problem2.Circle;
+import Problem2.MyCircle;
 
 
 public class CampusMap {
     
     private ArrayList<MyRectangle> buildings;
     private ArrayList<MyLine> walkways;
-    private ArrayList<Circle> fountains;
+    private ArrayList<MyCircle> fountains;
 
     public CampusMap() {
         buildings = new ArrayList<>();
@@ -27,7 +27,7 @@ public class CampusMap {
     }
 
     // Add a fountain
-    public void addFountain(Circle fountain) {
+    public void addFountain(MyCircle fountain) {
         fountains.add(fountain);
     }
 
@@ -40,36 +40,38 @@ public class CampusMap {
 
         MyPoint fromCenter = getCenter(from);
         MyPoint toCenter = getCenter(to);
+        
         // Use a coordinate-based constructor
-        walkways.add(new MyLine(fromCenter.getX(), fromCenter.getY(), toCenter.getX(), fromCenter.getY()));
+        walkways.add(new MyLine(fromCenter.getX(), fromCenter.getY(), toCenter.getX(), toCenter.getY()));
     }
 
     // Calculate total walkway length
-    public double calculateTotalWalkwayLength() {
+        public double calculateTotalWalkwayLength() {
         double total = 0;
-    }
+        for(MyLine line : walkways) {
+            total += line.getLength();
+        }
+        return total;
 
-    for (MyLine line : walkways) {
-        total += line.getLength();
-    }
-    
-    return total;
-
+}
     // Check if a walkway exists between two buildings
 
-    public boolean isWalkwayFromTo(MyRectangle fromBuilding, MyRectangle toBuilding) {
+        public boolean isWalkwayFromTo(MyRectangle fromBuilding, MyRectangle toBuilding) {
         MyPoint fromCenter = getCenter(fromBuilding);
         MyPoint toCenter = getCenter(toBuilding);
 
         for (MyLine line : walkways) {
             boolean forward = 
-            line.getBegin().getX() == fromCenter.getX() &&
-            line.getBegin().getY() == fromCenter.getY() && 
-            line.getEnd().getY() == toCenter.getX() && line.getEnd().getY() == toCenter.getY();
+            line.getBegin().equals(fromCenter) && line.getEnd().equals(toCenter);
 
             boolean reverse = 
-            line.getBegin().getX() == toCenter.getX() && line.getBegin().getY() == toCenter.getY() && line.getEnd().getX() == fromCenter.getX() && line.getEnd().getY() == fromCenter.getY();
+            line.getBegin().equals(toCenter) && line.getEnd().equals(fromCenter);
+            
+            if (forward || reverse) {
+                return true;
+            }
         }
+        return false;
 
     } 
 
@@ -81,3 +83,4 @@ public class CampusMap {
         return new MyPoint(centerX, centerY);
     }
 }
+
